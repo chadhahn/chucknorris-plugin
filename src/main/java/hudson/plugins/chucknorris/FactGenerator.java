@@ -95,7 +95,7 @@ public class FactGenerator {
     /**
      * Random instance.
      */
-    private static final Random RANDOM = new Random();;
+    protected static final Random RANDOM = new Random();;
 
     /**
      * Retrieves a random fact.

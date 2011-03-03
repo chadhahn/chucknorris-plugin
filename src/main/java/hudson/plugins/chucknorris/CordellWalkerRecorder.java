@@ -60,7 +60,7 @@ public class CordellWalkerRecorder extends Recorder {
      */
     @DataBoundConstructor
     public CordellWalkerRecorder() {
-        this(new FactGenerator());
+        this(new FileBackedFactGenerator());
     }
 
     /**
