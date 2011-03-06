@@ -2,6 +2,7 @@ package hudson.plugins.chucknorris;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
@@ -31,16 +32,20 @@ public class FileBackedFactGenerator extends FactGenerator {
 
     @SuppressWarnings("unchecked")
     protected List<String> getFactsFromFile() throws IOException {
-        final String file = getFileFromUrl();
-        return readLines(new File(file));
+        final File file = getFileFromUrl();
+        return readLines(file);
     }
 
-    private String getFileFromUrl() throws IOException {
+    private File getFileFromUrl() throws IOException {
         final URL url = getClass().getResource(FACTS_FILE);
         if (url == null) {
             throw new IOException();
         }
-        return url.getFile();
+        try {
+            return new File(url.toURI());
+        } catch (final URISyntaxException e) {
+            throw new IOException(e);
+        }
     }
 
     protected String getRandomFact() {
